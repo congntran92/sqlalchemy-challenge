@@ -13,15 +13,12 @@ engine = create_engine("sqlite:///hawaii.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
-
 Measurement = Base.classes.measurement
 Station = Base.classes.station
 
 session = Session(engine)
 
-
 app = Flask(__name__)
-
 
 
 @app.route("/")
@@ -95,7 +92,6 @@ def given_date(date):
     results = session.query(func.avg(Measurement.tobs), func.max(Measurement.tobs), func.min(Measurement.tobs)).\
         filter(Measurement.date >= date).all()
 
-  
     data_list = []
     for result in results:
         row = {}
@@ -113,8 +109,7 @@ def query_dates(start_date, end_date):
     """Return the avg, max, min, temp over a specific time period"""
     results = session.query(func.avg(Measurement.tobs), func.max(Measurement.tobs), func.min(Measurement.tobs)).\
         filter(Measurement.date >= start_date, Measurement.date <= end_date).all()
-
-   
+        
     data_list = []
     for result in results:
         row = {}
